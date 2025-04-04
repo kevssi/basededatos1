@@ -13,11 +13,8 @@
                 document.querySelector('.temperatura').textContent = "Cargando...";
                 document.querySelector('.descripcion').textContent = "";
                 
-                // Si estás usando tu servidor Express localmente
-                const url = `http://localhost:3000/clima/${ciudad}`; // Cambiar por la URL de tu servidor
-                
-                // Si tienes el servidor desplegado online (ejemplo en Heroku o similar):
-                // const url = `https://tuservidor.herokuapp.com/clima/${ciudad}`;
+                // URL de tu servidor backend
+                const url = `http://localhost:3000/clima/${ciudad}`;
 
                 try {
                     const respuesta = await fetch(url);
@@ -40,6 +37,14 @@
                 }
             }
         }
+
+        // Llamar al botón automáticamente
+        function clickBoton() {
+            document.querySelector('button').click(); // Simula un clic en el botón
+        }
+
+        // Llamar al botón automáticamente después de 2 segundos (por ejemplo)
+        setTimeout(clickBoton, 2000); // Esto llamará al botón automáticamente después de 2 segundos
     </script>
 </head>
 <body>
@@ -50,4 +55,7 @@
     <div class="clima-container">
         <h2 class="ciudad">Ciudad Ejemplo</h2>
         <p class="temperatura">25°C</p>
-        <p class="descripcion">Despejado</
+        <p class="descripcion">Despejado</p>
+    </div>
+</body>
+</html>
