@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima Actual</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script>
+        async function obtenerClima() {
+            const ciudad = document.getElementById('ciudadInput').value;
+            if (ciudad) {
+                document.querySelector('.ciudad').textContent = ciudad;
+                document.querySelector('.temperatura').textContent = "Cargando...";
+                document.querySelector('.descripcion').textContent = "";
+                
+                // Hacer la solicitud a tu servidor en lugar de OpenWeatherMap
+                const url = `http://localhost:3000/clima/${ciudad}`; // Asegúrate de que el puerto sea el mismo que usas en tu servidor
+
+                try {
+                    const respuesta = await fetch(url);
+                    const datos = await respuesta.json();
+
+                    if (respuesta.ok) {
+                        const temperatura = datos.main.temp;
+                        const descripcion = datos.weather[0].description;
+                        
+                        document.querySelector('.temperatura').textContent = `${temperatura}°C`;
+                        document.querySelector('.descripcion').textContent = descripcion.charAt(0).toUpperCase() + descripcion.slice(1);
+                    } else {
+                        document.querySelector('.temperatura').textContent = "Ciudad no encontrada";
+                        document.querySelector('.descripcion').textContent = "";
+                    }
+                } catch (error) {
+                    console.error('Error al obtener el clima:', error);
+                    document.querySelector('.temperatura').textContent = "Error al cargar el clima";
+                    document.querySelector('.descripcion').textContent = "";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="input-container">
+        <input type="text" id="ciudadInput" placeholder="Ingrese una ciudad">
+        <button onclick="obtenerClima()">Ver Clima</button>
+    </div>
+    <div class="clima-container">
+        <h2 class="ciudad">Ciudad Ejemplo</h2>
+        <p class="temperatura">25°C</p>
+        <p class="descripcion">Despejado</p>
+    </div>
+</body>
+</html>
