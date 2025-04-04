@@ -14,7 +14,8 @@
                 document.querySelector('.descripcion').textContent = "";
                 
                 // Hacer la solicitud a tu servidor en lugar de OpenWeatherMap
-                const url = `http://localhost:3000/clima/${ciudad}`; // Asegúrate de que el puerto sea el mismo que usas en tu servidor
+                const url = `http://localhost:3000/clima/${ciudad}`;
+                 const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_KEY}&units=metric&lang=es`;// Asegúrate de que el puerto sea el mismo que usas en tu servidor
 
                 try {
                     const respuesta = await fetch(url);
