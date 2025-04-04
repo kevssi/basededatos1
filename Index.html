@@ -14,7 +14,7 @@
                 document.querySelector('.descripcion').textContent = "";
                 
                 // URL de tu servidor backend
-                const url = `http://localhost:3000/clima/${ciudad}`;
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_KEY}&units=metric&lang=es`;
 
                 try {
                     const respuesta = await fetch(url);
