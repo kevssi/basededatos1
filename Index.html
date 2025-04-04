@@ -12,9 +12,9 @@
                 document.querySelector('.ciudad').textContent = ciudad;
                 document.querySelector('.temperatura').textContent = "Cargando...";
                 document.querySelector('.descripcion').textContent = "";
-                
+
                 // URL de tu servidor backend
-                const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_KEY}&units=metric&lang=es`;
+                const url = `http://localhost:3000/clima/${encodeURIComponent(ciudad)}`;
 
                 try {
                     const respuesta = await fetch(url);
@@ -23,7 +23,7 @@
                     if (respuesta.ok) {
                         const temperatura = datos.main.temp;
                         const descripcion = datos.weather[0].description;
-                        
+
                         document.querySelector('.temperatura').textContent = `${temperatura}°C`;
                         document.querySelector('.descripcion').textContent = descripcion.charAt(0).toUpperCase() + descripcion.slice(1);
                     } else {
@@ -38,13 +38,8 @@
             }
         }
 
-        // Llamar al botón automáticamente
-        function clickBoton() {
-            document.querySelector('button').click(); // Simula un clic en el botón
-        }
-
-        // Llamar al botón automáticamente después de 2 segundos (por ejemplo)
-        setTimeout(clickBoton, 2000); // Esto llamará al botón automáticamente después de 2 segundos
+        // Llamar al botón automáticamente después de 2 segundos
+        setTimeout(() => document.querySelector('button').click(), 2000);
     </script>
 </head>
 <body>
@@ -53,9 +48,3 @@
         <button onclick="obtenerClima()">Ver Clima</button>
     </div>
     <div class="clima-container">
-        <h2 class="ciudad">Ciudad Ejemplo</h2>
-        <p class="temperatura">25°C</p>
-        <p class="descripcion">Despejado</p>
-    </div>
-</body>
-</html>
